@@ -7,13 +7,17 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+<a href="#app-root" class="skip-link">Ir para o conteúdo principal</a>
 
 <header>
     <img src="/img/banner.png" alt="Banner principal da organização">
     <h1>Organização Social Esperança</h1>
+    <button id="toggle-contrast" class="btn-contrast" aria-pressed="false">
+        Alto contraste
+    </button>
 </header>
 
-<nav>
+<nav aria-label="Navegação principal">
     <ul>
         <li><a href="#home" data-route="home">Início</a></li>
         <li><a href="#projetos" data-route="projetos">Projetos Sociais</a></li>
@@ -21,8 +25,7 @@
     </ul>
 </nav>
 
-<main 
-    id="app-root">
+<main id="app-root" role="main" aria-live="polite">
 </main>
 
 <footer>

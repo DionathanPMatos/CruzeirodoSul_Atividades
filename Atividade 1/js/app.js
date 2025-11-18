@@ -1,13 +1,4 @@
-/* =========================================================
-   APP.JS
-   Projeto acadêmico – SPA simples + templates + validação
-   Organização por blocos:
-   1) Templates (páginas)
-   2) Núcleo SPA (roteamento)
-   3) Máscaras de input
-   4) Validação de formulário + alerts
-   5) LocalStorage (simulando “banco”)
-   ========================================================= */
+
 
 /* =========================================================
    1) TEMPLATES DAS PÁGINAS (HTML GERADO VIA JS)
@@ -18,7 +9,7 @@ const templates = {
         <section class="container">
             <h2>Quem Somos</h2>
 
-            <img src="img/equipe.jpg" alt="Equipe de voluntários reunida" style="margin-bottom: 1rem; border-radius: 6px;">
+            <img src="/img/equipe.jpeg" alt="Equipe de voluntários reunida" style="margin-bottom: 1rem; border-radius: 6px;">
 
             <p>Somos uma organização que trabalha para transformar vidas por meio de ações comunitárias, programas de apoio e projetos sociais direcionados a famílias em situação de vulnerabilidade.</p>
         </section>
@@ -26,7 +17,7 @@ const templates = {
         <section class="container">
             <h2>Nossas Ações</h2>
 
-            <img src="img/acao-social.jpg" alt="Ação social sendo realizada" style="margin-bottom: 1rem; border-radius: 6px;">
+            <img src="/img/acao-social.jpeg" alt="Ação social sendo realizada" style="margin-bottom: 1rem; border-radius: 6px;">
 
             <p>Realizamos campanhas de arrecadação de alimentos, roupas, apoio educacional, visitas a instituições e projetos de impacto social contínuo.</p>
         </section>
@@ -120,7 +111,6 @@ function renderView(viewName) {
     const template = templates[viewName] || templates.home;
     appRoot.innerHTML = template;
 
-    // Depois de trocar o HTML, inicializar partes específicas
     if (viewName === "cadastro") {
         initMasks();
         initFormValidation();
@@ -205,12 +195,11 @@ function mostrarAlert(tipo, mensagem) {
     if (!container) return;
 
     container.innerHTML = `
-        <div class="alert alert-${tipo}">
+        <div class="alert alert-${tipo}" role="alert">
             ${mensagem}
         </div>
     `;
 
-    // some alert depois de alguns segundos
     setTimeout(() => {
         container.innerHTML = "";
     }, 4000);
@@ -297,10 +286,8 @@ function initFormValidation() {
             return;
         }
 
-        // Se chegou até aqui, dados consistentes
         mostrarAlert("success", "Cadastro realizado com sucesso!");
 
-        // Salvar no localStorage (simulação de banco)
         salvarCadastroLocalStorage({
             nome: nome.value.trim(),
             email: email.value.trim(),
@@ -359,4 +346,15 @@ function renderCadastrosNaLista() {
 
 document.addEventListener("DOMContentLoaded", () => {
     initSPA();
+    initHighContrastToggle();
 });
+
+function initHighContrastToggle() {
+    const btn = document.getElementById("toggle-contrast");
+    if (!btn) return;
+
+    btn.addEventListener("click", () => {
+        const isActive = document.body.classList.toggle("high-contrast");
+        btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+    });
+}
